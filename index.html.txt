@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loading...</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: black;
+        }
+        #screen {
+            width: 100vw;
+            height: 100vh;
+            background: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.1s;
+        }
+    </style>
+</head>
+<body>
+    <div id="screen"></div>
+    <audio id="scaryAudio" src="YOUR_AUDIO_LINK.mp3" autoplay></audio>
+
+    <script>
+        const screen = document.getElementById("screen");
+        const audio = document.getElementById("scaryAudio");
+        
+        // Force full volume (may not work due to browser restrictions)
+        audio.volume = 1.0;
+        
+        // Simulate screen flickering (on/off rapidly)
+        function flickerScreen() {
+            let count = 0;
+            const flickerInterval = setInterval(() => {
+                screen.style.opacity = Math.random() > 0.5 ? "1" : "0";
+                count++;
+                if (count > 20) {
+                    clearInterval(flickerInterval);
+                    screen.style.opacity = "0";
+                    setTimeout(() => {
+                        alert("PRANKED! 😈 Just kidding, your PC is fine.");
+                    }, 500);
+                }
+            }, 100);
+        }
+        
+        // Start the prank when the page loads
+        window.onload = function() {
+            flickerScreen();
+            audio.play().catch(e => alert("Allow audio to play for the full effect!"));
+        };
+    </script>
+</body>
+</html>
