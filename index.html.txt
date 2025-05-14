@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Loading...</title>
+    <title>Secret Message</title>
     <style>
         body {
             margin: 0;
             overflow: hidden;
             background: black;
+            font-family: Arial;
+            text-align: center;
+            color: white;
         }
         #screen {
             width: 100vw;
@@ -18,39 +21,46 @@
             opacity: 0;
             transition: opacity 0.1s;
         }
+        #startButton {
+            padding: 15px 30px;
+            font-size: 18px;
+            background: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 45vh;
+        }
     </style>
 </head>
 <body>
+    <button id="startButton">CLICK TO REVEAL SECRET MESSAGE</button>
     <div id="screen"></div>
-    <audio id="scaryAudio" src="YOUR_AUDIO_LINK.mp3" autoplay></audio>
+    <audio id="scaryAudio" src="YOUR_AUDIO_FILE.mp3"></audio>
 
     <script>
         const screen = document.getElementById("screen");
         const audio = document.getElementById("scaryAudio");
-        
-        // Force full volume (may not work due to browser restrictions)
-        audio.volume = 1.0;
-        
-        // Simulate screen flickering (on/off rapidly)
-        function flickerScreen() {
+        const button = document.getElementById("startButton");
+
+        // When button is clicked, start prank
+        button.onclick = function() {
+            button.style.display = "none";
+            audio.volume = 1.0;
+            audio.play();
+            
+            // Screen flicker effect
             let count = 0;
             const flickerInterval = setInterval(() => {
                 screen.style.opacity = Math.random() > 0.5 ? "1" : "0";
                 count++;
-                if (count > 20) {
+                if (count > 30) {
                     clearInterval(flickerInterval);
                     screen.style.opacity = "0";
                     setTimeout(() => {
-                        alert("PRANKED! 😈 Just kidding, your PC is fine.");
+                        alert("😂 PRANKED! Your PC is fine.");
                     }, 500);
                 }
             }, 100);
-        }
-        
-        // Start the prank when the page loads
-        window.onload = function() {
-            flickerScreen();
-            audio.play().catch(e => alert("Allow audio to play for the full effect!"));
         };
     </script>
 </body>
